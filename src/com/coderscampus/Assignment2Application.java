@@ -6,6 +6,9 @@ import java.util.Scanner;
 public class Assignment2Application {
 
 	public static void main(String[] args) {
+		main2(args);
+		System.exit(0);
+		
 		Random RandomNumber = new Random();
 		int theRandomNumber = RandomNumber.nextInt(101);
 		if (theRandomNumber == 0) {
@@ -83,5 +86,53 @@ public class Assignment2Application {
 
 		scanner.close();
 
+	}
+
+
+
+	
+	
+	
+	
+	
+	public static void main2(String[] args) {
+		Random randomizer = new Random();
+		int randomNumber = randomizer.nextInt(101) + 1;
+		System.out.println(randomNumber);
+		
+		Scanner scanner = new Scanner(System.in);
+
+		int guessCounter = 0;  // no guess attempt made yet
+		int userGuess = 0;
+		while (guessCounter < 5) {
+			System.out.println("Pick a number between 1 and 100");
+			userGuess = Integer.parseInt(scanner.nextLine());
+			
+			// validate if valid guess range
+			if (userGuess < 1 || userGuess > 100) {
+				System.out.println("Your guess is not between 1 and 100, please try again");
+				continue; //goes to next iteration of while loop, no increment on the guess counter
+			}
+
+			// valid guess range, check correctness
+			if (userGuess == randomNumber) {
+				System.out.println("You win!");
+				break;
+			} else if (userGuess < randomNumber) {
+				System.out.println("Please pick a higher number");
+			} else if (userGuess > randomNumber) {
+				System.out.println("Please pick a lower number");
+			}
+			
+			guessCounter++;
+		}
+
+		// at this point, we know that if the userGuess is not equal as the random number,
+		// we know it exhausted allowed incorrect guesses
+		if (userGuess != randomNumber) {
+			System.out.println("You lose, the number to guess was " + randomNumber);
+		}
+		
+		scanner.close();
 	}
 }
